@@ -1,20 +1,21 @@
 module "network" {
   source = "./network"
 
-  vpc_cidr_block  = var.vpc_cidr_block
-  frontend_a_cidr = var.frontend_a_cidr
-  frontend_b_cidr = var.frontend_b_cidr
-  backend_a_cidr  = var.backend_a_cidr
-  db_a_cidr       = var.db_a_cidr
-  db_b_cidr       = var.db_b_cidr
-  internet_cidr   = var.internet_cidr
-  all_ports_from  = var.all_ports_from
-  all_ports_to    = var.all_ports_to
-  http_port       = var.http_port
-  tcp_protocol    = var.tcp_protocol
-  all_protocol    = var.all_protocol
-  http_protocol   = var.http_protocol
-  common_tags     = var.common_tags
+  vpc_cidr_block         = var.vpc_cidr_block
+  frontend_a_cidr        = var.frontend_a_cidr
+  frontend_b_cidr        = var.frontend_b_cidr
+  backend_a_cidr         = var.backend_a_cidr
+  db_a_cidr              = var.db_a_cidr
+  db_b_cidr              = var.db_b_cidr
+  internet_cidr          = var.internet_cidr
+  all_ports_from         = var.all_ports_from
+  all_ports_to           = var.all_ports_to
+  http_port              = var.http_port
+  tcp_protocol           = var.tcp_protocol
+  all_protocol           = var.all_protocol
+  http_protocol          = var.http_protocol
+  common_tags            = var.common_tags
+  eice_security_group_id = module.security.eice_security_group_id
 
 }
 module "security" {
@@ -29,8 +30,8 @@ module "security" {
   all_ports_from = var.all_ports_from
   all_ports_to   = var.all_ports_to
   common_tags    = var.common_tags
-
-  vpc_id = module.network.vpc_id
+  vpc_id         = module.network.vpc_id
+  vpc_cidr       = module.network.vpc_cidr
 }
 
 module "compute" {

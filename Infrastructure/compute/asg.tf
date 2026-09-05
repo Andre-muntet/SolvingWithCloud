@@ -88,5 +88,5 @@ resource "aws_instance" "backend" {
     # Start backend
     npm start
   EOF
-  
+
 }

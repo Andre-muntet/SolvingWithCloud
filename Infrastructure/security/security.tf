@@ -35,6 +35,14 @@ resource "aws_security_group" "ec2" {
     protocol        = var.tcp_protocol
     security_groups = [aws_security_group.alb.id]
   }
+  ingress {
+    description     = "SSH from EC2 Instance Connect"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    prefix_list_ids = ["pl-03e39de5240ee5b4e"]
+  }
+
 
   egress {
     description = "Allow outbound traffic"
@@ -59,6 +67,13 @@ resource "aws_security_group" "backend" {
     to_port         = var.backend_port
     protocol        = var.tcp_protocol
     security_groups = [aws_security_group.ec2.id]
+  }
+  ingress {
+    description = "SSH from EICE"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
@@ -88,6 +103,21 @@ resource "aws_security_group" "db" {
 
   egress {
     description = "Allow outbound traffic"
+    from_port   = var.all_ports_from
+    to_port     = var.all_ports_to
+    protocol    = var.all_protocol
+    cidr_blocks = [var.internet_cidr]
+  }
+
+  tags = var.common_tags
+}
+
+resource "aws_security_group" "eice" {
+  name        = "three-tier-eice-sg"
+  description = "Security group for EC2 Instance Connect Endpoint"
+  vpc_id      = var.vpc_id
+
+  egress {
     from_port   = var.all_ports_from
     to_port     = var.all_ports_to
     protocol    = var.all_protocol

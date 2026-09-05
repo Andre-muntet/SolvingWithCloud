@@ -13,3 +13,7 @@ output "backend_security_group_id" {
 output "db_security_group_id" {
   value = aws_security_group.db.id
 }
+
+output "eice_security_group_id" {
+  value = aws_security_group.eice.id
+}
