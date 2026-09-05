@@ -14,7 +14,7 @@ resource "aws_launch_template" "frontend" {
     name = var.frontend_instance_profile_name
   }
 
-  user_data = <<-EOF
+  user_data = base64encode(<<-EOF
   #!/bin/bash
 
   dnf install -y nginx
@@ -24,7 +24,7 @@ resource "aws_launch_template" "frontend" {
   systemctl enable nginx
   systemctl start nginx
 EOF
-  
+  )
 
 
   block_device_mappings {
