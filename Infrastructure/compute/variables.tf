@@ -25,31 +25,31 @@ variable "alb_health_check_path" {
 
 //asg
 variable "backend_ami" {
-  type    = string
+  type = string
 }
 
 variable "backend_instance_type" {
-  type    = string
+  type = string
 }
 
 variable "backend_root_volume_size" {
-  type    = number
+  type = number
 }
 
 variable "backend_root_volume_type" {
-  type    = string
+  type = string
 }
 
 variable "frontend_asg_min_size" {
-  type    = number
+  type = number
 }
 
 variable "frontend_asg_desired_capacity" {
-  type    = number
+  type = number
 }
 
 variable "frontend_asg_max_size" {
-  type    = number
+  type = number
 }
 
 variable "common_tags" {
@@ -86,7 +86,7 @@ variable "vpc_id" {
   type = string
 }
 
-variable "ec2_instance_profile_name" {
+variable "frontend_instance_profile_name" {
   type = string
 }
 

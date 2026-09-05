@@ -60,7 +60,7 @@ resource "aws_instance" "backend" {
     Name = "three-tier-backend"
   })
 
-  user_data = base64encode(<<-EOF
+  user_data = <<-EOF
     #!/bin/bash
 
     # Database configuration
@@ -77,7 +77,7 @@ resource "aws_instance" "backend" {
     mkdir -p /opt/backend
 
     # Download backend application from S3
-    aws s3 cp s3://three-tier-app-artifacts/backend/ /opt/backend/ --recursive
+    aws s3 cp s3://three-tier-artifacts/backend/ /opt/backend/ --recursive
 
     # Move into application directory
     cd /opt/backend
@@ -88,5 +88,5 @@ resource "aws_instance" "backend" {
     # Start backend
     npm start
   EOF
-  )
+  
 }

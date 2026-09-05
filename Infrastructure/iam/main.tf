@@ -70,7 +70,7 @@ resource "aws_iam_role" "backend" {
     ]
   })
 
-  tags =var.common_tags
+  tags = var.common_tags
 }
 
 resource "aws_iam_role_policy" "backend" {
@@ -110,4 +110,60 @@ resource "aws_iam_role_policy" "backend" {
 resource "aws_iam_instance_profile" "backend" {
   name = "three-tier-backend-profile"
   role = aws_iam_role.backend.name
+}
+
+
+resource "aws_iam_role" "github_actions" {
+  name = "three-tier-github-actions-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github.arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+          }
+
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:Andre-muntet/SolvingWithCloud:*"
+          }
+        }
+      }
+    ]
+  })
+
+  tags = var.common_tags
+}
+
+resource "aws_iam_role_policy" "github_actions" {
+  name = "three-tier-github-actions-s3-policy"
+  role = aws_iam_role.github_actions.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = var.bucket_arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${var.bucket_arn}/*"
+      }
+    ]
+  })
 }

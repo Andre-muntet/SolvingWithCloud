@@ -8,23 +8,23 @@ resource "aws_launch_template" "frontend" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups = [var.frontend_security_group_id]
+    security_groups             = [var.frontend_security_group_id]
   }
   iam_instance_profile {
-    name = var.ec2_instance_profile_name
+    name = var.frontend_instance_profile_name
   }
 
-user_data = base64encode(<<-EOF
+  user_data = <<-EOF
   #!/bin/bash
 
   dnf install -y nginx
 
-  aws s3 cp s3://three-tier-app-artifacts/frontend/ /usr/share/nginx/html/ --recursive
+  aws s3 cp s3://three-tier-artifacts/frontend/ /usr/share/nginx/html/ --recursive
 
   systemctl enable nginx
   systemctl start nginx
 EOF
-)
+  
 
 
   block_device_mappings {

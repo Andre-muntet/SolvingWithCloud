@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "artifacts" {
-  bucket = "three-tier-artifact"
+  bucket = "three-tier-artifacts"
 
   tags = var.common_tags
 }

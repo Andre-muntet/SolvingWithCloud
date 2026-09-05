@@ -1,38 +1,38 @@
 
 
 variable "db_instance_class" {
-  type    = string
+  type = string
 }
 variable "db_allocated_storage" {
-  type    = number
+  type = number
 }
 
 variable "db_storage_type" {
-  type    = string
+  type = string
 }
 
 variable "db_name" {
-  type    = string
+  type = string
 }
 
 variable "db_username" {
-  type    = string
+  type = string
 }
 
 
 variable "db_publicly_accessible" {
-  type    = bool
+  type = bool
 
 }
 
 variable "db_multi_az" {
-  type    = bool
+  type = bool
 
 }
 
 variable "db_skip_final_snapshot" {
-  type    = bool
- 
+  type = bool
+
 }
 
 variable "common_tags" {

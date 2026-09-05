@@ -1,11 +1,11 @@
 // security
 
 variable "backend_port" {
-  type    = number
+  type = number
 }
 
 variable "db_port" {
-  type    = number
+  type = number
 }
 
 // common
@@ -16,36 +16,36 @@ variable "common_tags" {
 }
 
 variable "http_port" {
-  type    = number
+  type = number
 }
 
 variable "tcp_protocol" {
-  type    = string
-  
+  type = string
+
 }
 
 variable "http_protocol" {
-  type    = string
+  type = string
 
 }
 
 variable "all_protocol" {
-  type    = string
-  
+  type = string
+
 }
 
 variable "internet_cidr" {
-  type    = string
+  type = string
 
 }
 
 variable "all_ports_from" {
-  type    = number
-  
+  type = number
+
 }
 
 variable "all_ports_to" {
-  type    = number
+  type = number
 
 }
 

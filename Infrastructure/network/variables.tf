@@ -1,29 +1,29 @@
 
 variable "frontend_a_cidr" {
-  type    = string
+  type = string
 }
 
 variable "frontend_b_cidr" {
-  type    = string
+  type = string
 }
 
 variable "backend_a_cidr" {
-  type    = string
+  type = string
 }
 
 variable "db_a_cidr" {
-  type    = string
+  type = string
 }
 
 variable "db_b_cidr" {
-  type    = string
+  type = string
 }
 
 
 // vpc
 
 variable "vpc_cidr_block" {
-  type    = string
+  type = string
 }
 
 
@@ -37,35 +37,35 @@ variable "common_tags" {
 }
 
 variable "http_port" {
-  type    = number
+  type = number
 }
 
 variable "tcp_protocol" {
-  type    = string
-  
+  type = string
+
 }
 
 variable "http_protocol" {
-  type    = string
+  type = string
 
 }
 
 variable "all_protocol" {
-  type    = string
-  
+  type = string
+
 }
 
 variable "internet_cidr" {
-  type    = string
+  type = string
 
 }
 
 variable "all_ports_from" {
-  type    = number
-  
+  type = number
+
 }
 
 variable "all_ports_to" {
-  type    = number
+  type = number
 
 }
