@@ -25,6 +25,6 @@ button {
 button {
   cursor: pointer;
   background-color: #43e45e;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
 }
