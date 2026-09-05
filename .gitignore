@@ -1,0 +1,13 @@
+
+# Terraform
+Infrastructure/.terraform/
+Infrastructure/*.tfstate
+Infrastructure/*.tfstate.*
+Infrastructure/terraform.tfvars
+
+# Node
+three-tier-app/backend/node_modules/
+three-tier-app/backend/dist/
+
+# Environment variables
+three-tier-app/backend/.env
