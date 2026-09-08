@@ -1,21 +1,21 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Signup</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Login -->
-  <div id="login-section">
-    <h1>Login</h1>
+  <!-- Signup -->
+  <div id="signup-section">
+    <h1>Create account</h1>
 
-    <form id="login-form">
+    <form id="signup-form">
       <input
         type="email"
         id="email"
@@ -30,32 +30,33 @@
         required
       >
 
-      <button type="submit" id="login-button">Login</button>
+      <button type="submit" id="signup-button">Create account</button>
     </form>
-    <button type="button" id="signup-link">Create account</button>
   </div>
 
 
   <!-- Success -->
   <div id="success-section" hidden>
     <h1>✓</h1>
-    <h2>Login successful</h2>
-    <p>Welcome back!</p>
+    <h2>Signup successful</h2>
+    <p>Your account has been created!</p>
   </div>
 
 
   <!-- Error Modal -->
   <div id="error-modal" hidden>
     <div>
-      <h2>Login failed</h2>
-      <p>Incorrect email or password.</p>
+      <h2>Signup failed</h2>
+      <p>Email already exists.</p>
 
       <button id="try-again">Try again</button>
     </div>
   </div>
 
 
-  <script src="script.js"></script>
+  <script src="signup.js"></script>
 
 </body>
 </html>
+```
+

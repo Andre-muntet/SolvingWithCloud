@@ -1,16 +1,11 @@
-const form = document.getElementById("login-form");
-const loginSection = document.getElementById("login-section");
+
+const form = document.getElementById("signup-form");
+const signupSection = document.getElementById("signup-section");
 const successSection = document.getElementById("success-section");
 const errorModal = document.getElementById("error-modal");
 
 const tryAgain = document.getElementById("try-again");
-const loginButton = document.getElementById("login-button");
-
-const signupLink = document.getElementById("signup-link");
-
-signupLink.addEventListener("click", () => {
-  window.location.href = "signup.html";
-});
+const signupButton = document.getElementById("signup-button");
 
 tryAgain.addEventListener("click", () => {
   errorModal.hidden = true;
@@ -23,10 +18,10 @@ form.addEventListener("submit", async (event) => {
   const password = document.getElementById("password").value;
 
   // Start spinner
-  loginButton.disabled = true;
-  loginButton.innerHTML = "⏳ Logging in...";
+  signupButton.disabled = true;
+  signupButton.innerHTML = "⏳ Creating account...";
 
-  const response = await fetch("http://localhost:8080/api/login", {
+  const response = await fetch("http://localhost:8080/api/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -40,15 +35,15 @@ form.addEventListener("submit", async (event) => {
   const data = await response.json();
 
   // Stop spinner
-  loginButton.disabled = false;
-  loginButton.innerHTML = "Login";
+  signupButton.disabled = false;
+  signupButton.innerHTML = "Create account";
 
   if (data.success) {
-    loginSection.hidden = true;
+    signupSection.hidden = true;
     successSection.hidden = false;
   } else {
     errorModal.hidden = false;
   }
 
-  console.log("res",data);
+  console.log("res", data);
 });

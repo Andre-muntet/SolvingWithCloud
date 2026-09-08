@@ -22,3 +22,34 @@ export const login = async (req: Request, res: Response) => {
     message: "Login successful"
   });
 };
+
+export const signup = async (req: Request, res: Response) => {
+
+  const { email, password } = req.body;
+
+  console.log("Signup request:", email);
+
+  const result = await pool.query(
+    "SELECT * FROM users WHERE email = $1",
+    [email]
+  );
+
+  const user = result.rows[0];
+
+  if (user) {
+    return res.status(409).json({
+      success: false,
+      message: "Email already exists"
+    });
+  }
+
+  await pool.query(
+    "INSERT INTO users (email, password) VALUES ($1, $2)",
+    [email, password]
+  );
+
+  return res.json({
+    success: true,
+    message: "Signup successful"
+  });
+};
