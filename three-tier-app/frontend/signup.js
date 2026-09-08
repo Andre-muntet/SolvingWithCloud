@@ -1,4 +1,3 @@
-
 const form = document.getElementById("signup-form");
 const signupSection = document.getElementById("signup-section");
 const successSection = document.getElementById("success-section");
@@ -17,7 +16,6 @@ form.addEventListener("submit", async (event) => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // Start spinner
   signupButton.disabled = true;
   signupButton.innerHTML = "⏳ Creating account...";
 
@@ -34,7 +32,6 @@ form.addEventListener("submit", async (event) => {
 
   const data = await response.json();
 
-  // Stop spinner
   signupButton.disabled = false;
   signupButton.innerHTML = "Create account";
 

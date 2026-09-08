@@ -22,7 +22,6 @@ form.addEventListener("submit", async (event) => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // Start spinner
   loginButton.disabled = true;
   loginButton.innerHTML = "⏳ Logging in...";
 
@@ -39,7 +38,6 @@ form.addEventListener("submit", async (event) => {
 
   const data = await response.json();
 
-  // Stop spinner
   loginButton.disabled = false;
   loginButton.innerHTML = "Login";
 
@@ -50,5 +48,5 @@ form.addEventListener("submit", async (event) => {
     errorModal.hidden = false;
   }
 
-  console.log("res",data);
+  console.log("res", data);
 });
