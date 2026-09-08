@@ -75,11 +75,14 @@ user_data = <<-EOF
   # Create application directory
   mkdir -p /opt/backend
 
-  # Download backend application from S3
-  until aws s3 cp s3://three-tier-artifacts/backend/ /opt/backend/ --recursive; do
-    echo "S3 download failed. Retrying in 30 seconds..."
+  # Wait for backend application to become available in S3
+  until aws s3api head-object --bucket three-tier-artifacts --key backend/package.json >/dev/null 2>&1; do
+    echo "Backend files not available in S3. Retrying in 30 seconds..."
     sleep 30
   done
+
+  # Download backend application from S3
+  aws s3 cp s3://three-tier-artifacts/backend/ /opt/backend/ --recursive
 
   # Move into application directory
   cd /opt/backend

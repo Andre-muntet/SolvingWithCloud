@@ -19,11 +19,14 @@ user_data = base64encode(<<-EOF
 
   dnf install -y nginx
 
-  # Download frontend application from S3
-  until aws s3 cp s3://three-tier-artifacts/frontend/ /usr/share/nginx/html/ --recursive; do
-    echo "S3 download failed. Retrying in 30 seconds..."
+  # Wait for frontend application to become available in S3
+  until aws s3api head-object --bucket three-tier-artifacts --key frontend/index.html >/dev/null 2>&1; do
+    echo "Frontend files not available in S3. Retrying in 30 seconds..."
     sleep 30
   done
+
+  # Download frontend application from S3
+  aws s3 cp s3://three-tier-artifacts/frontend/ /usr/share/nginx/html/ --recursive
 
   systemctl enable nginx
   systemctl start nginx
