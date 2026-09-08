@@ -6,11 +6,7 @@ const errorModal = document.getElementById("error-modal");
 const tryAgain = document.getElementById("try-again");
 const loginButton = document.getElementById("login-button");
 
-const signupLink = document.getElementById("signup-link");
 
-signupLink.addEventListener("click", () => {
-  window.location.href = "signup.html";
-});
 
 tryAgain.addEventListener("click", () => {
   errorModal.hidden = true;
