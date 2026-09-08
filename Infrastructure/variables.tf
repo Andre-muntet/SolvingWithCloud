@@ -198,5 +198,3 @@ variable "all_ports_to" {
 }
 
 
-
-

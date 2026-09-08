@@ -50,7 +50,6 @@ resource "aws_instance" "backend" {
   associate_public_ip_address = false
 
   iam_instance_profile = var.backend_instance_profile_name
-
   root_block_device {
     volume_size = var.backend_root_volume_size
     volume_type = var.backend_root_volume_type

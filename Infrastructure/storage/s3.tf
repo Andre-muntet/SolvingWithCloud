@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "artifacts" {
   bucket = "three-tier-artifacts"
+    force_destroy = true
 
   tags = var.common_tags
 }

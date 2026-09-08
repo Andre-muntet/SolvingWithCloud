@@ -107,6 +107,12 @@ resource "aws_iam_role_policy" "backend" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "backend_ssm" {
+  role       = aws_iam_role.backend.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+
 resource "aws_iam_instance_profile" "backend" {
   name = "three-tier-backend-profile"
   role = aws_iam_role.backend.name
