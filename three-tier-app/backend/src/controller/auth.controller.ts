@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
   if (!user || user.password !== password) {
     return res.status(401).json({
       success: false,
-      message: "Incorrect email y or password"
+      message: "Incorrect email or password"
     });
   }
 

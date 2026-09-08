@@ -59,33 +59,36 @@ resource "aws_instance" "backend" {
     Name = "three-tier-backend"
   })
 
-  user_data = <<-EOF
-    #!/bin/bash
+user_data = <<-EOF
+  #!/bin/bash
 
-    # Database configuration
-    export DB_HOST="${var.db_host}"
-    export DB_PORT="${var.db_port}"
-    export DB_USER="${var.db_username}"
-    export DB_NAME="${var.db_name}"
+  # Database configuration
+  export DB_HOST="${var.db_host}"
+  export DB_PORT="${var.db_port}"
+  export DB_USER="${var.db_username}"
+  export DB_NAME="${var.db_name}"
 
-    # Install Node.js
-    curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
-    dnf install -y nodejs
+  # Install Node.js
+  curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
+  dnf install -y nodejs
 
-    # Create application directory
-    mkdir -p /opt/backend
+  # Create application directory
+  mkdir -p /opt/backend
 
-    # Download backend application from S3
-    aws s3 cp s3://three-tier-artifacts/backend/ /opt/backend/ --recursive
+  # Download backend application from S3
+  until aws s3 cp s3://three-tier-artifacts/backend/ /opt/backend/ --recursive; do
+    echo "S3 download failed. Retrying in 30 seconds..."
+    sleep 30
+  done
 
-    # Move into application directory
-    cd /opt/backend
+  # Move into application directory
+  cd /opt/backend
 
-    # Install dependencies
-    npm ci
+  # Install dependencies
+  npm ci
 
-    # Start backend
-    npm start
-  EOF
+  # Start backend
+  npm start
+EOF
 
 }

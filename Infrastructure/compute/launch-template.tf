@@ -14,18 +14,22 @@ resource "aws_launch_template" "frontend" {
     name = var.frontend_instance_profile_name
   }
 
-  user_data = base64encode(<<-EOF
+user_data = base64encode(<<-EOF
   #!/bin/bash
 
   dnf install -y nginx
 
-  aws s3 cp s3://three-tier-artifacts/frontend/ /usr/share/nginx/html/ --recursive
+  # Download frontend application from S3
+  until aws s3 cp s3://three-tier-artifacts/frontend/ /usr/share/nginx/html/ --recursive; do
+    echo "S3 download failed. Retrying in 30 seconds..."
+    sleep 30
+  done
 
   systemctl enable nginx
   systemctl start nginx
-EOF
-  )
 
+EOF
+)
 
   block_device_mappings {
     device_name = "/dev/sda1"
