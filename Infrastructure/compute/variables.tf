@@ -111,3 +111,7 @@ variable "db_name" {
 variable "backend_instance_profile_name" {
   type = string
 }
+
+variable "rds_secret_arn" {
+  type = string
+}

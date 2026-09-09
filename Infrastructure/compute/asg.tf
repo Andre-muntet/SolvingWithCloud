@@ -63,10 +63,19 @@ user_data = <<-EOF
   #!/bin/bash
 
   # Database configuration
+
   export DB_HOST="${var.db_host}"
   export DB_PORT="${var.db_port}"
   export DB_USER="${var.db_username}"
   export DB_NAME="${var.db_name}"
+
+  # Get database password from Secrets Manager
+  SECRET=$(aws secretsmanager get-secret-value \
+    --secret-id "${var.rds_secret_arn}" \
+    --query SecretString \
+    --output text)
+
+  export DB_PASSWORD=$(python3 -c "import json,sys; print(json.loads(sys.argv[1])['password'])" "$SECRET")
 
   # Install Node.js
   curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -

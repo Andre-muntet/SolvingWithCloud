@@ -64,6 +64,7 @@ module "compute" {
   db_username                    = module.database.rds_username
   db_name                        = module.database.rds_db_name
   backend_instance_profile_name  = module.iam.backend_instance_profile_name
+  rds_secret_arn                 = module.iam.rds_secret_arn
 
 }
 
