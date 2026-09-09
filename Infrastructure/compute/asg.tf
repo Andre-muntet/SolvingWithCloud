@@ -90,6 +90,9 @@ user_data = <<-EOF
   # Install dependencies
   npm ci
 
+  # Build TypeScript
+  npm run build
+
   # Start backend
   npm start
 EOF
