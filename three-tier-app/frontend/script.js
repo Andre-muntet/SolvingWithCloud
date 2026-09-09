@@ -34,14 +34,15 @@ form.addEventListener("submit", async (event) => {
 
   const data = await response.json();
 
-  loginButton.disabled = false;
-  loginButton.innerHTML = "Login";
 
   if (data.success) {
     loginSection.hidden = true;
     successSection.hidden = false;
   } else {
     errorModal.hidden = false;
+    loginButton.disabled = false;
+  loginButton.innerHTML = "Login";
+
   }
 
   console.log("res", data);

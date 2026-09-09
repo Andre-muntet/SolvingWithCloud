@@ -19,6 +19,23 @@ user_data = base64encode(<<-EOF
 
   dnf install -y nginx
 
+  # Configure Nginx
+  cat > /etc/nginx/conf.d/backend.conf <<NGINX
+  server {
+      listen 80;
+      server_name _;
+
+      location / {
+          root /usr/share/nginx/html;
+          index index.html;
+      }
+
+      location /api/ {
+          proxy_pass http://${aws_instance.backend.private_ip}:8080;
+      }
+  }
+  NGINX
+
   # Wait for frontend application to become available in S3
   until aws s3api head-object --bucket three-tier-artifacts --key frontend/index.html >/dev/null 2>&1; do
     echo "Frontend files not available in S3. Retrying in 30 seconds..."
