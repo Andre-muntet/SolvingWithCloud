@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "three-tier-application/three-tier-app/frontend/**
+      - "three-tier-application/three-tier-app/frontend/**"
       - "three-tier-application/three-tier-app/backend/**"
 
 permissions:
@@ -30,9 +30,9 @@ jobs:
         with:
           filters: |
             frontend:
-              - 'three-tier-app/frontend/**'
+              - 'three-tier-application/three-tier-app/frontend/**'
             backend:
-              - 'three-tier-app/backend/**'
+              - 'three-tier-application/three-tier-app/backend/**'
 
   deploy-frontend:
     needs: detect-changes
@@ -49,12 +49,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: af-south-1
-      
-
 
       - name: Upload frontend
         run: |
-          aws s3 sync three-tier-app/frontend/ s3://three-tier-artifacts/frontend/ --delete
+          aws s3 sync three-tier-application/three-tier-app/frontend/ s3://three-tier-artifacts/frontend/ --delete
 
   deploy-backend:
     needs: detect-changes
@@ -74,4 +72,4 @@ jobs:
 
       - name: Upload backend
         run: |
-          aws s3 sync three-tier-app/backend/ s3://three-tier-artifacts/backend/ --delete
+          aws s3 sync three-tier-application/three-tier-app/backend/ s3://three-tier-artifacts/backend/ --delete
