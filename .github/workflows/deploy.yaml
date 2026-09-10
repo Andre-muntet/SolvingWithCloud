@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "three-tier-app/frontend/**"
-      - "three-tier-app/backend/**"
+      - "three-tier-application/three-tier-app/frontend/**
+      - "three-tier-application/three-tier-app/backend/**"
 
 permissions:
   id-token: write
