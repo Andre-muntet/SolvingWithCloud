@@ -246,7 +246,7 @@ The `provider.tf` file configures Terraform and specifies the AWS provider and r
 
 ### 1. Provision the Infrastructure
 
-From the `Infrastructure` directory, initialize Terraform and provision the infrastructure:
+From the `Infrastructure` directory, initialize Terraform and provision the infrastructure: (also ensure you are connected to the AWS CLI)
 
 ```bash
 terraform init
@@ -338,3 +338,6 @@ terraform destroy
 ```
 
 > **Important:** The GitHub Actions IAM user will not be destroyed because its credentials are stored in GitHub and are still required by the deployment workflow.
+
+
+thumbs up for today!👍
