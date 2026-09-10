@@ -16,7 +16,6 @@ This README documents the **application development and infrastructure setup pro
 
   * [Backend Application](#backend-application)
 
-    * [Dependencies](#dependencies)
   * [Frontend Application](#frontend-application)
 * [Infrastructure](#infrastructure)
 
@@ -48,7 +47,7 @@ This README documents the **application development and infrastructure setup pro
       * [Frontend EC2](#frontend-ec2)
       * [Backend EC2](#backend-ec2-1)
       * [GitHub Actions](#github-actions)
-    * [`main.tf` & `provider.tf`](#maintf--providertf)
+    * [main.tf & provider.tf](#maintf--providertf)
 * [Deployment](#deployment)
 
   * [1. Provision the Infrastructure](#1-provision-the-infrastructure)
@@ -63,7 +62,7 @@ This README documents the **application development and infrastructure setup pro
 
 The application was kept simple to support the project's primary focus: deploying a three-tier application using cloud infrastructure.
 
-### Backend Application
+### 1. Backend Application
 
 The backend was built using Node.js and TypeScript with Express.
 
@@ -78,7 +77,7 @@ The backend is organized into:
 * Controllers
 * Database connection
 
-#### Dependencies
+#### 1.1 Dependencies
 
 The backend dependencies are defined in `package.json`.
 
@@ -88,7 +87,9 @@ To install the project dependencies, run:
 npm install
 ```
 
-### Frontend Application
+---
+
+### 2. Frontend Application
 
 The frontend was built using:
 
@@ -97,6 +98,7 @@ The frontend was built using:
 * **JavaScript** — application logic and communication with the backend
 
 The frontend communicates with the backend using HTTP requests to the authentication endpoints.
+
 
 ## Infrastructure
 
@@ -289,7 +291,7 @@ Open the address in a browser using **HTTP**, not HTTPS:
 ```text
 http://<alb-dns-name>
 ```
-
+Check Target groups to ensure both frontend instances are healthy and receiving traffic.
 The frontend application should load.
 
 Test the application by:
