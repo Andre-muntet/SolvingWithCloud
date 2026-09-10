@@ -59,7 +59,7 @@ resource "aws_instance" "backend" {
     Name = "three-tier-backend"
   })
 
-user_data = <<-EOF
+  user_data = <<-EOF
   #!/bin/bash
 
   # Database configuration
@@ -104,6 +104,6 @@ user_data = <<-EOF
 
   # Start backend
   npm start
-EOF
+  EOF
 
 }

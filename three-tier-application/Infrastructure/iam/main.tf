@@ -1,4 +1,5 @@
 
+//frontend
 resource "aws_iam_role" "ec2_s3_read" {
   name = "three-tier-ec2-s3-read-role"
 
@@ -50,6 +51,7 @@ resource "aws_iam_instance_profile" "ec2" {
   name = "three-tier-ec2-s3-read-profile"
   role = aws_iam_role.ec2_s3_read.name
 }
+//Backend
 
 resource "aws_iam_role" "backend" {
   name = "three-tier-backend-role"
@@ -117,6 +119,7 @@ resource "aws_iam_instance_profile" "backend" {
   name = "three-tier-backend-profile"
   role = aws_iam_role.backend.name
 }
+
 
 
 resource "aws_iam_user" "github_actions" {
