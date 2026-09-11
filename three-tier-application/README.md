@@ -392,6 +392,4 @@ Finally, destroy the infrastructure:
 terraform destroy
 ```
 
-Terraform will then remove the IAM user and its associated resources managed by Terraform.
-
-> **Important:** Remove the GitHub secrets and IAM access keys before running `terraform destroy`. The GitHub Actions deployment workflow will no longer be able to deploy after the credentials have been removed.
+Terraform will then destroy all the resources it created, including the IAM user. 
