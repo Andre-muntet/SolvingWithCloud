@@ -329,6 +329,13 @@ Test the application by:
 * Logging in using **Login**
 * Confirming that the requests successfully reach the backend and database
 
+<table>
+  <tr>
+    <td><img src="images/signupsucess.png" alt="Signup success"></td>
+    <td><img src="images/loginsucess.png" alt="Login success"></td>
+  </tr>
+</table>
+
 ### 5. For troubleshooting or administration
 
 * **Frontend EC2:** Use **EC2 Instance Connect**. The frontend security group allows SSH access through the configured EC2 Instance Connect prefix list.
