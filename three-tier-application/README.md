@@ -120,6 +120,7 @@ The infrastructure is the core of the solution, designed around the application'
 * The application should provide a responsive experience for users.
 * The infrastructure should be reproducible using Terraform.
 
+
 ### Infrastructure Modules
 
 Terraform supports modular infrastructure, allowing resources to be separated by responsibility and reused where needed.
@@ -130,20 +131,21 @@ Terraform supports modular infrastructure, allowing resources to be separated by
 
 #### 1.1 Application Load Balancer (`alb.tf`)
 
-With multiple frontend EC2 servers, we needed a single point of entry for users. We therefore deployed an Application Load Balancer in the public subnets to receive traffic from the internet and distribute it across the frontend servers.
+With multiple frontend EC2 servers, a single point of entry for users was needed. Therefore, an Application Load Balancer was deployed in the public subnets to receive traffic from the internet and distribute it across the frontend servers.
 
 The ALB uses a **target group** to define and track the frontend instances that can receive traffic, while a **listener** receives incoming requests and forwards them to the target group.
 
 * **Target group** — tracks the frontend instances that can receive traffic.
+
 * **Listener** — receives incoming requests and forwards them to the target group.
 
 #### 1.2 Frontend Launch Template (`launch-template.tf`)
 
-Because the frontend servers use the same configuration, we created a launch template containing their common configuration. This allows new frontend instances to be created consistently.
+Because the frontend servers use the same configuration, a launch template was created containing their common configuration. This allows new frontend instances to be created consistently.
 
 #### 1.3 Auto Scaling Group (`asg.tf`)
 
-We used an Auto Scaling Group to manage the frontend instances across two Availability Zones, providing the required frontend availability and allowing instances to be replaced when needed.
+An Auto Scaling Group was used to manage the frontend instances across two Availability Zones, providing the required frontend availability and allowing instances to be replaced when needed.
 
 #### 1.4 Backend EC2
 
@@ -155,15 +157,15 @@ The backend was deployed on a single EC2 instance because the application only r
 
 #### 2.1 VPC Network
 
-We created a VPC with the CIDR block `10.0.0.0/16` to provide the network for the application.
+A VPC was created with the CIDR block `10.0.0.0/16` to provide the network for the application.
 
 #### 2.2 Frontend Public Routing
 
-The frontend needed to be accessible from the internet, so we created two public subnets in different Availability Zones.
+The frontend needed to be accessible from the internet, so two public subnets were created in different Availability Zones.
 
-We attached an **Internet Gateway** to the VPC to provide internet connectivity.
+An **Internet Gateway** was attached to the VPC to provide internet connectivity.
 
-We then created a route table with a default route to the Internet Gateway:
+A route table was then created with a default route to the Internet Gateway:
 
 ```text
 0.0.0.0/0 → Internet Gateway
@@ -173,11 +175,11 @@ The route table was associated with both frontend public subnets, making them pu
 
 #### 2.3 Backend Private Routing
 
-The backend needed to remain private, so we created one private subnet in a single Availability Zone.
+The backend needed to remain private, so one private subnet was created in a single Availability Zone.
 
-Because the backend still needed outbound internet access, we created a **NAT Gateway** in a public subnet. The NAT Gateway uses an **Elastic IP** to provide a stable public IP for outbound traffic.
+Because the backend still needed outbound internet access, a **NAT Gateway** was created in a public subnet. The NAT Gateway uses an **Elastic IP** to provide a stable public IP for outbound traffic.
 
-We then created a private route table with a default route to the NAT Gateway:
+A private route table was then created with a default route to the NAT Gateway:
 
 ```text
 0.0.0.0/0 → NAT Gateway
@@ -189,7 +191,7 @@ This allows the backend to initiate outbound connections without being directly 
 
 #### 2.4 Database Subnets
 
-The database also needed to remain private. We therefore created two private subnets in different Availability Zones.
+The database also needed to remain private. Two private subnets were therefore created in different Availability Zones.
 
 These subnets were used to create an **RDS DB subnet group**, allowing the database to be deployed within the VPC across the required Availability Zones.
 
@@ -197,7 +199,7 @@ These subnets were used to create an **RDS DB subnet group**, allowing the datab
 
 ### 3. Security
 
-We created four security groups to control traffic between the components of the application.
+Four security groups were created to control traffic between the components of the application.
 
 #### 3.1 ALB Security Group
 
@@ -225,7 +227,7 @@ This ensures that only the backend can communicate with the database.
 
 ### 4. Database
 
-We used **Amazon RDS PostgreSQL** to provide the application's database.
+**Amazon RDS PostgreSQL** was used to provide the application's database.
 
 The database was configured as a private RDS instance using the DB subnet group and security group created earlier. The database credentials are managed through **AWS Secrets Manager** rather than being stored directly in the application configuration.
 
@@ -233,7 +235,7 @@ The database was configured as a private RDS instance using the DB subnet group 
 
 ### 5. Storage
 
-We created a private **S3 bucket** to store the application artifacts for both the frontend and backend.
+A private **S3 bucket** was created to store the application artifacts for both the frontend and backend.
 
 The EC2 instances retrieve these artifacts during startup using their **user data** scripts, allowing the application servers to be provisioned with the required application files automatically.
 
@@ -241,24 +243,23 @@ The EC2 instances retrieve these artifacts during startup using their **user dat
 
 ### 6. IAM
 
-We created IAM identities and permissions for the services that needed access to AWS resources.
+IAM identities and permissions were created for the services that needed access to AWS resources.
 
 #### 6.1 Frontend EC2
 
-The frontend servers needed to retrieve the frontend application files from S3. We therefore created an IAM role with permission to read the S3 bucket and an instance profile that allows the EC2 instances to use the role.
+The frontend servers needed to retrieve the frontend application files from S3. An IAM role was therefore created with permission to read the S3 bucket, along with an instance profile that allows the EC2 instances to use the role.
 
 #### 6.2 Backend EC2
 
-The backend needed to retrieve its application files from S3 and access the database credentials stored in Secrets Manager. We therefore created an IAM role with permissions for these resources and attached it to the backend EC2 through an instance profile.
+The backend needed to retrieve its application files from S3 and access the database credentials stored in Secrets Manager. An IAM role was therefore created with permissions for these resources and attached to the backend EC2 through an instance profile.
 
 The backend role also uses **AmazonSSMManagedInstanceCore** to allow administration through AWS Systems Manager Session Manager.
 
 #### 6.3 GitHub Actions
 
-We needed GitHub Actions to automatically upload the frontend and backend application files to S3 whenever changes were pushed. The workflow therefore needed AWS credentials with permission to upload the files to the S3 bucket, which we provided through an IAM user.
+GitHub Actions needed to automatically upload the frontend and backend application files to S3 whenever changes were pushed. The workflow therefore needed AWS credentials with permission to upload the files to the S3 bucket, which were provided through an IAM user.
 
 The workflow is defined in `.github/workflows/deploy.yaml`.
-
 
 ### main.tf & provider.tf
 
@@ -268,7 +269,7 @@ The `provider.tf` file configures Terraform and specifies the AWS provider and r
 
 The AWS region was set to `af-south-1` to satisfy the business requirement of deploying the application in Africa while also providing low-latency access for users in the region.
 
----
+
 
 ## Deployment
 
