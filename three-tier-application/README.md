@@ -261,7 +261,7 @@ GitHub Actions needed to automatically upload the frontend and backend applicati
 
 The workflow is defined in `.github/workflows/deploy.yaml`.
 
-### main.tf & provider.tf
+### 7. main.tf & provider.tf
 
 The `main.tf` file is used to configure and build the infrastructure modules that make up the project.
 
